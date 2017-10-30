@@ -39,10 +39,17 @@ void line_cmd(int x1, int x2, int y1, int y2);
 %%
 
 program:
+          {
+            setup();
+          }
           statement_list end
           ;
 end:
           END END_STATEMENT
+          {
+            finish();
+            return(0);
+          }
           ;
 statement_list:
           statement statement_list
@@ -96,13 +103,7 @@ set_color_command:
 %%
 int main(int argc, char** argv)
 {
-  setup();
-  int result = yyparse();
-  if (result != 0) {
-    return(result);
-  }
-  finish();
-  return(0);
+  return(yyparse());
 }
 
 /*******************************
