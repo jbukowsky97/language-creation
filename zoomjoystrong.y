@@ -40,6 +40,7 @@ void line_cmd(int x1, int x2, int y1, int y2);
 
 program:
           {
+            /* setup sdl2 */
             setup();
           }
           statement_list end
@@ -47,6 +48,7 @@ program:
 end:
           END END_STATEMENT
           {
+            /* destroy sdl2 */
             finish();
             return(0);
           }
@@ -100,7 +102,17 @@ set_color_command:
             set_color_cmd($2, $3, $4);
           }
           ;
+          
 %%
+
+/*******************************
+ * main function
+ *
+ * @param argc number of args in argv
+ * @param argv point of arguments
+ *
+ * @return int status result of code
+ *******************************/
 int main(int argc, char** argv)
 {
   return(yyparse());
